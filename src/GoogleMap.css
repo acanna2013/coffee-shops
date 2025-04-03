@@ -9,7 +9,7 @@ body,
   /* will cause it to be adjusted away from its normal position */
 }
 
-.map-container {
+#map {
   width: 50%;
   height: 80vh;
   position: absolute; 
