@@ -1,0 +1,20 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #AB886D; /* background color */
+  position: relative; /* positioned relative to its normal pos */
+  /* setting top/right/bottom/left properties of a relatively positioned element 
+  /* will cause it to be adjusted away from its normal position */
+}
+
+.map-container {
+  width: 50%;
+  height: 80vh;
+  position: absolute; 
+  /* use absolute positioning to place element at center of its parent container */
+  top: 50%; /* move 50% of the container height downward */
+  left: 50%; /* move 50% of the container height rightward */
+  transform: translate(-50%, -50%); /* in horizontal, vertical direction */
+}

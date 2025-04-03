@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import GoogleMap from './GoogleMap';
 
 test('renders learn react link', () => {
-  render(<App />);
+  render(<GoogleMap />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
