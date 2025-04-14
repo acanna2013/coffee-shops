@@ -12,7 +12,7 @@ body,
 #map {
   width: 50%;
   height: 80vh;
-  position: absolute; 
+  position: center; 
   /* use absolute positioning to place element at center of its parent container */
   top: 50%; /* move 50% of the container height downward */
   left: 50%; /* move 50% of the container height rightward */

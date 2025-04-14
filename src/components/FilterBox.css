@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Tenor+Sans&display=swap');body {
+    font-family: 'Indie Flower';
+    font-size: 48px;
+}
+
+.filter-sidebar {
+    color:#493628;
+    width: 20%;
+    top: 50%; /* move 50% of the container height downward */
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;  
+    transform: translateY(42px);
+}
+  
+input {
+    width: 100%;
+}
+
+datalist {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+  
