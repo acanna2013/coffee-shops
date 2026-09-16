@@ -1,38 +1,65 @@
-import { useEffect, useState } from 'react';
-import GoogleMap from './components/GoogleMap';
-import FilterBox from './components/FilterBox';
-import HomePage from './components/HomePage';
+import { useRef, useEffect, useState } from 'react'
+import mapboxgl from 'mapbox-gl'
+
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './App.css'
+
+const INITIAL_CENTER = [
+  -74.0242,
+  40.6941
+]
+const INITIAL_ZOOM = 10.12
+
 function App() {
-  const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
-  // Get user's location
+  const mapRef = useRef()
+  const mapContainerRef = useRef()
+
+  const [center, setCenter] = useState(INITIAL_CENTER)
+  const [zoom, setZoom] = useState(INITIAL_ZOOM)
+
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setUserLocation({ lat: latitude, lng: longitude });
-        },
-        (error) => console.error("Error getting location:", error),
-        { enableHighAccuracy: true }
-      );
+    mapRef.current = new mapboxgl.Map({
+      accessToken: ,
+      container: mapContainerRef.current,
+      center: center,
+      zoom: zoom
+    });
+
+    mapRef.current.on('move', () => {
+      // get the current center coordinates and zoom level from the map
+      const mapCenter = mapRef.current.getCenter()
+      const mapZoom = mapRef.current.getZoom()
+
+      // update state
+      setCenter([ mapCenter.lng, mapCenter.lat ])
+      setZoom(mapZoom)
+    })
+
+    return () => {
+      mapRef.current.remove()
     }
-  }, []);
+  }, [])
 
-
-  return (
-    <div className="parent">
-      {/* Homepage Section */}
-      <section style={{ height: '100vh', width: '100%' }}>
-        <HomePage />
-      </section>
-
-      {/* Map Section */}
-      <section style={{ height: '100vh', width: '100%', display: 'flex' }}>
-        <FilterBox />
-        <GoogleMap userLocation={userLocation} />
-      </section>
-    </div>
-  );
+  const handleButtonClick = () => {
+  mapRef.current.flyTo({
+    center: INITIAL_CENTER,
+    zoom: INITIAL_ZOOM
+  })
 }
 
-export default App;
+
+return (
+  <>
+    <div className="sidebar">
+      Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
+    </div>
+    <button className='reset-button' onClick={handleButtonClick}>
+      Reset
+    </button>
+    <div id='map-container' ref={mapContainerRef} />
+  </>
+
+  )
+}
+
+export default App
