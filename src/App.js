@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     mapRef.current = new mapboxgl.Map({
-      accessToken: ,
+      accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
       container: mapContainerRef.current,
       center: center,
       zoom: zoom
