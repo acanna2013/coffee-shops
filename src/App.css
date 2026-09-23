@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
+
 #root {
   position: absolute;
   top: 0;
@@ -7,15 +9,49 @@
 }
 
 #map-container {
+  position: relative;
   height: 100%;
   width: 100%;
   /* temporarily set the background color so we can tell where the map container is positioned */
   background-color: lightgrey;
+  transition: filter 0.25s ease;
+  filter: none;
 }
 
+:has(.search-coffee:focus-within) #map-container .mapboxgl-canvas {
+  filter: blur(1px) brightness(0.35);
+}
+
+#map-container .mapboxgl-user-location-dot,
+#map-container .mapboxgl-user-location-dot::before {
+  transition: opacity 0.25s ease;
+}
+
+:has(.search-coffee:focus-within) #map-container .mapboxgl-user-location-dot,
+:has(.search-coffee:focus-within) #map-container .mapboxgl-user-location-dot::before {
+  opacity: 0.3;
+}
+  
+/* Blur and dim when #urlbar is focused */
+  :has(#urlbar:focus-within) #zen-tabbox-wrapper {
+    filter: blur(1px) brightness(0.35);
+}
+/* Default state: no blur */
+#zen-tabbox-wrapper {
+    transition: filter 0.25s ease;
+    filter: none;
+  }
+  
+  /* Blur and dim when #urlbar is focused */
+  :has(#urlbar:focus-within) #zen-tabbox-wrapper {
+    filter: blur(1px) brightness(0.35);
+}
+
+
+
 .sidebar {
-  background-color: rgb(35 55 75 / 90%);
-  color: #fff;
+  /* background-color: rgb(35 55 75 / 90%);
+  color: #fff; */
   padding: 6px 12px;
   font-family: monospace;
   z-index: 1;
@@ -26,12 +62,107 @@
   border-radius: 4px;
 }
 
-.reset-button {
+.fun-coffee-icon-wrapper {
   position: absolute;
-  top: 50px;
-  z-index: 1;
+  top: 40px;
   left: 12px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.fun-coffee-icon-button {
+  max-height: 100px;
   padding: 4px 10px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.music-note {
+  position: absolute;
+  top: 10px;
+  font-size: 20px;
+  color: #856d4d;
+  pointer-events: none;
+  opacity: 0;
+  animation: float-note 1.8s ease-in infinite;
+}
+
+.music-note:nth-child(2) {
+  left: 15px;
+  animation-delay: 0s;
+}
+
+.music-note:nth-child(3) {
+  left: 45px;
+  animation-delay: 0.6s;
+}
+
+.music-note:nth-child(4) {
+  left: 75px;
+  animation-delay: 1.2s;
+}
+
+@keyframes float-note {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) rotate(15deg);
+  }
+}
+
+.music-pause-resume-button {
+  margin-left: 15px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Roboto';
+  background-color: #856d4d;
+  color: #fff;
+}
+
+.search-coffee {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: min(400px, 80%);
+  transition: top 0.3s ease, transform 0.3s ease, width 0.3s ease;
+}
+
+.search-coffee:focus-within {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, 90%);
+}
+
+.search-input {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  color: 	#856d4d;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px 	#856d4d;
+  font-size: 14px;
+  box-sizing: border-box;
+  opacity: 0.9;
+
+}
+
+.search-input:focus {
+  outline: 2px solid #215784;
+  opacity: 1;
 }
